@@ -20,6 +20,24 @@ With this simple command, you will be able to use **mitmproxy** without going th
 docker run --rm -it -v ~/your/local/folder:/home/mitmproxy/.mitmproxy -p 8080:8080 mitmproxy/mitmproxy:4.0.4
 ```
 
+To simplify the use of this command, just add an alias in your `~/.bash_profile` :
+
+```bash
+alias mitmproxy='docker run --rm -it -v ~/your/local/folder:/home/mitmproxy/.mitmproxy -p 8080:8080 mitmproxy/mitmproxy:4.0.4'
+```
+
+Now you can start **mitmproxy** using :
+
+```bash
+mitmproxy
+```
+
+And if you need to use parameters, no worries you can use params as you would do if **mitmproxy** was directly installed on your computer :
+
+```bash
+mitmproxy --set view_filter=google.com
+```
+
 ## Scripts
 
 Writing **mitmproxy** scripts is quite simple if you are a bit familiar with Python and if you have examples. Here are a few ones :
