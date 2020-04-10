@@ -46,3 +46,4 @@ Writing **mitmproxy** scripts is quite simple if you are a bit familiar with Pyt
 | :--------------------------------------- | :--------------------------------------------------------------------------- |
 | [Redirect](Redirect)                     | Redirect requests to another server                                          |
 | [EditableCache](EditableCache)           | Create a local and editable cache you can play with                          |
+| [ChangeHTTPCode](ChangeHTTPCode)         | Change responses HTTP code                                                   |
