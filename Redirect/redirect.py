@@ -2,17 +2,18 @@ from mitmproxy import http
 from mitmproxy import ctx
 
 class Redirect:
-    host_filter = "www.only-redirect-requests-from-this-domain.com"
-
     redirect_rules = {
-        "api": "www.new-host.com", # if request url contains `api` then redirect host to `www.new-host.com`
-        "images": "cdn.new-host.com" # if request url contains `images` then redirect host to `cdn.new-host.com`
+        "my-domain.com/images": "my-domain.com/images-new", # replace `my-domain.com/images` with `my-domain.com/images-new` in requests url
+        "my-domain.com/api": "my-domain.com/api-new"
     }
 
+    def load(self, loader):
+        ctx.options.http2 = False # HTTP2 won't let you update the url
+
     def request(self, flow: http.HTTPFlow) -> None:
-        if (self.url_filter in flow.request.pretty_url):
-            for keyword, redirection in self.redirect_rules.items():
-                if (flow.request.pretty_host == self.host_filter) and (rule in flow.request.pretty_url):
-                    flow.request.host = redirection
+        for init_domain, new_domain in self.redirect_rules.items():
+            if (init_domain in flow.request.pretty_url):
+                flow.request.url = flow.request.pretty_url.replace(init_domain, new_domain)
+
 
 addons = [Redirect()]
